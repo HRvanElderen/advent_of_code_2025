@@ -1,10 +1,10 @@
-# This code is garbage
+# Reduce the ranges by adding them up.
 
 input_file = "input"
 
 
-def reduce(ranges):
-    final_ranges = set()
+def reduce(ranges: list[str]) -> set[str]:
+    final_ranges: set[str] = set()
 # remove ranges in other range
     for r1 in ranges:
         r1_bounds = r1.split("-")
@@ -36,7 +36,7 @@ def reduce(ranges):
     return final_ranges
 
 
-ranges = []
+ranges: list[str] = []
 part_1 = True
 with open(input_file, "r") as f:
     for line in f.readlines():
@@ -47,11 +47,11 @@ with open(input_file, "r") as f:
         if part_1:
             ranges.append(line.rstrip())
 
-r_new = []
+
 prev_len = -1
 length = len(ranges)
 while length != prev_len:
-    ranges = reduce(ranges)
+    ranges = list(reduce(ranges))
     prev_len = length
     length = len(ranges)
 

@@ -1,11 +1,14 @@
+# goal: if number in range has two equal parts.
+# iterate over all ranges and split the number using slicing and check if parts are equal.
 input_file = "input"
 
+ranges: list[str] = []
 
 with open(input_file, "r") as f:
     for line in f.readlines():
         ranges = line.split(',')
 
-print(ranges)
+
 total = 0
 for id_range in ranges:
     parts = id_range.split('-')
@@ -16,4 +19,5 @@ for id_range in ranges:
 
         if first_half == second_half:
             total += n
+
 print(total)

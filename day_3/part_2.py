@@ -1,7 +1,6 @@
-input_file = "input"
 
 
-def max_jolt(b, s, e):
+def max_jolt(b: list[int], s: int, e: int) -> tuple[int, int]:
     m = (0, 0)
     for i, v in enumerate(b):
         if v > m[1] and s <= i <= e:
@@ -9,25 +8,31 @@ def max_jolt(b, s, e):
     return m
 
 
-rows = []
-with open(input_file, "r") as f:
-    for line in f.readlines():
-        b = []
-        for n in line:
-            if n == '\n':
-                continue
-            b.append(int(n))
-        rows.append(b)
+def read_input(file: str):
+    batteries: list[list[int]] = []
+
+    with open(file, "r") as f:
+        for line in f.readlines():
+            battery: list[int] = []
+
+            for n in line.strip():
+                battery.append(int(n))
+            batteries.append(battery)
+
+    return batteries
+
+
+batteries = read_input("input")
 
 total = 0
-for row in rows:
-    batteries = []
+for battery in batteries:
+    best_batteries: list[int] = []
     i = -1
-    row_len = len(row)
+    row_len = len(battery)
     for b in range(12):
-        i, n1 = max_jolt(row, i+1, row_len-(12-b))
+        i, n1 = max_jolt(battery, i+1, row_len-(12-b))
 
-        batteries.append(n1)
-    total += int(''.join(map(str, batteries)))
+        best_batteries.append(n1)
+    total += int(''.join(map(str, best_batteries)))
 
 print(total)

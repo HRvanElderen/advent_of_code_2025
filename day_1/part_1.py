@@ -1,21 +1,22 @@
 input_file = "input"
 
-moves = []
+moves: list[tuple[str, int]] = []
+
 with open(input_file, "r") as f:
     for line in f.readlines():
-        d = line[0]
-        n = int(line[1:])
+        direction = line[0]
+        distance = int(line[1:])
 
-        moves.append((d, n))
+        moves.append((direction, distance))
 
-l = 50
+location = 50
 count = 0
-for d, n in moves:
-    if d == 'L':
-        l = (l - n) % 100
+for direction, distance in moves:
+    if direction == 'L':
+        location = (location - distance) % 100
     else:
-        l = (l + n) % 100
-    if l == 0:
+        location = (location + distance) % 100
+    if location == 0:
         count += 1
 
 print(count)

@@ -1,7 +1,7 @@
 input_file = "input"
 
 
-def check_ingredient(ranges, ingredient):
+def check_ingredient(ranges: list[str], ingredient: int):
     for r in ranges:
         parts = r.split('-')
         if ingredient > int(parts[0]) and ingredient < int(parts[1])+1:
@@ -9,8 +9,8 @@ def check_ingredient(ranges, ingredient):
     return 0
 
 
-ranges = []
-ingredients = []
+ranges: list[str] = []
+ingredients: list[str] = []
 part_1 = True
 with open(input_file, "r") as f:
     for line in f.readlines():
@@ -23,9 +23,6 @@ with open(input_file, "r") as f:
         else:
             ingredients.append(line.rstrip())
 
-print(ranges)
-
-print(ingredients)
 count = 0
 for ingredient in ingredients:
     count += check_ingredient(ranges, int(ingredient))

@@ -1,7 +1,20 @@
-input_file = "input"
 
 
-def max_jolt(b, s, e):
+def read_input(file: str):
+    batteries: list[list[int]] = []
+
+    with open(file, "r") as f:
+        for line in f.readlines():
+            battery: list[int] = []
+
+            for n in line.strip():
+                battery.append(int(n))
+            batteries.append(battery)
+
+    return batteries
+
+
+def max_jolt(b: list[int], s: int, e: int):
     m = (0, 0)
     for i, j in enumerate(b[s:e]):
         if j > m[1]:
@@ -9,22 +22,12 @@ def max_jolt(b, s, e):
     return m
 
 
-batteries = []
-with open(input_file, "r") as f:
-    for line in f.readlines():
-        b = []
-        for n in line:
-            if n == '\n':
-                continue
-            b.append(int(n))
-        batteries.append(b)
-
-print(batteries)
+batteries = read_input("input")
 
 total = 0
-for b in batteries:
-    i, n1 = max_jolt(b, 0, len(b)-1)
-    print(b[0:len(b)])
-    i, n2 = max_jolt(b, i+1, len(b))
+for battery in batteries:
+    i, n1 = max_jolt(battery, 0, len(battery)-1)
+    i, n2 = max_jolt(battery, i+1, len(battery))
     total += int(str(n1) + str(n2))
+
 print(total)

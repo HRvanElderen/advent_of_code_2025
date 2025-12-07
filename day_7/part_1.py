@@ -1,30 +1,23 @@
 input_file = "input"
 
-grid = []
-with open(input_file, "r") as f:
-    for line in f.readlines():
-        row = []
-        for n in line:
-            if n == '\n':
-                continue
-            row.append(n)
-        grid.append(row)
+grid: list[list[str]] = []
 
-print(grid)
+with open(input_file, "r") as f:
+    for line in f:
+        grid.append(list(line.strip()))
 
 total = 0
-for i, row in enumerate(grid):
-    if len(grid) == i+1:
+# iterate over the grid and update the beam inplace, count every split.
+for row_i, row in enumerate(grid):
+    if len(grid) == row_i+1:
         continue
-    for j, value in enumerate(row):
-        if value == '.':
-            continue
+    for col_i, value in enumerate(row):
         if value == 'S' or value == '|':
-            if grid[i+1][j] == '^':
+            if grid[row_i+1][col_i] == '^':
                 total += 1
-                grid[i+1][j+1] = '|'
-                grid[i+1][j-1] = '|'
+                grid[row_i+1][col_i+1] = '|'
+                grid[row_i+1][col_i-1] = '|'
             else:
-                grid[i+1][j] = '|'
-print(grid)
+                grid[row_i+1][col_i] = '|'
+
 print(total)

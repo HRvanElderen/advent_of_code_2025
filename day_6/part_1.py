@@ -1,5 +1,5 @@
 
-equations = []
+equations: list[list[str]] = []
 
 with open("input", "r") as f:
     for line in f.readlines():
@@ -7,13 +7,10 @@ with open("input", "r") as f:
         # for p in parts:
         equations.append(parts)
 
-print(equations)
-
 operators = equations[-1]
 numbers = equations[:-1]
-print(numbers)
-
 total = 0
+
 for i in range(len(numbers[0])):
     eq = ''
     op = operators[i]
@@ -21,7 +18,6 @@ for i in range(len(numbers[0])):
         eq += numbers[j][i]
         if j != len(numbers)-1:
             eq += op
-    print(eq)
     total += eval(eq)
 
 print(total)
